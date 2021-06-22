@@ -12,7 +12,7 @@ public class LetterButton : MonoBehaviour, IBounceable, IEaseInBounce
 
 
     public UnityEvent ClickedOnCorrectLetter;
-    [SerializeField] public bool IsCorrectLetter;
+    public bool IsCorrectLetter;
     public SeleteableGameObject SeleteableGameObject
     {
         get
@@ -30,9 +30,11 @@ public class LetterButton : MonoBehaviour, IBounceable, IEaseInBounce
     private Button _button;
     private RectTransform _rectTransform;
     private RectTransform _imageUIRectTransform;
+    private ParticleSystem _particleSystem;
 
     private void Start()
     {
+        _particleSystem = GameObject.FindObjectOfType<ParticleSystem>();
         _rectTransform = GetComponent<RectTransform>();
         _imageUIRectTransform = _imageUI.GetComponent<RectTransform>();
         _button = GetComponent<Button>();
@@ -44,6 +46,7 @@ public class LetterButton : MonoBehaviour, IBounceable, IEaseInBounce
     {
         if(IsCorrectLetter)
         {
+            _particleSystem.Play();
             DoBounce(_rectTransform);
             ClickedOnCorrectLetter.Invoke();
         }

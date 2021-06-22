@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using DG.Tweening;
 
 public class GameField : MonoBehaviour
@@ -14,7 +15,8 @@ public class GameField : MonoBehaviour
     [SerializeField] private GameObject _thirdRow;
     [SerializeField] private Text _taskText;
     [SerializeField] private GameObject _restartButton;
-    [SerializeField] private GameObject _blackPanel;
+
+    public UnityEvent SessionEnded;
 
     private List<SeleteableGameObject> _usedSelecteableGO; //объекты, которые уже были выбраны в качестве верных вариантов ответа в текущей сессии
 
@@ -34,13 +36,12 @@ public class GameField : MonoBehaviour
             }
             if(_levelNumber == 4)
             {
+                SessionEnded.Invoke();
                 _restartButton.SetActive(true);
-                _blackPanel.SetActive(true);
-                _blackPanel.GetComponent<CanvasGroup>().DOFade(0.3f, 0.5f);
+
             }
         }
     }
-
 
     private void Start()
     {
@@ -66,39 +67,6 @@ public class GameField : MonoBehaviour
         _restartButton.GetComponent<Button>().onClick.AddListener(OnRestartButtonClick);
     }
 
-    public void OnRestartButtonClick()
-    {
-        _restartButton.SetActive(false);
-        _blackPanel.GetComponent<CanvasGroup>().DOFade(0f, 0.5f);
-        _blackPanel.SetActive(false);
-
-        LevelNumber = 1;
-        GenerateNewLevel();
-    }
-    private void OnCorrectButtonClick()
-    {
-
-        LevelNumber++;
-        if (LevelNumber > 3)
-        {
-            _restartButton.SetActive(true);
-        }
-        else
-        {
-            GenerateNewLevel();
-        }
-
-    }
-
-    private List<SeleteableGameObject> GetRandomDataSet()
-    {
-        int indexOfSet = UnityEngine.Random.Range(0, _dataSets.Length);
-        IEnumerable<SeleteableGameObject> randomDataSet = new List<SeleteableGameObject>(_dataSets[indexOfSet].GetDataSet());
-        IEnumerable<SeleteableGameObject> dataSetWithoutUsed = randomDataSet.Except(_usedSelecteableGO);
-        return new List<SeleteableGameObject>(dataSetWithoutUsed);
-
-    }
-
     private void SetActiveForRows()
     {
         _firstRow.SetActive(_levelNumber >= 1);
@@ -114,7 +82,6 @@ public class GameField : MonoBehaviour
         for(int i = 0; i < activeButtons.Length; i++)
         {
             int randomValue = UnityEngine.Random.Range(0, dataSet.Count - 1);
-            if (dataSet.Count <= randomValue) Debug.Log("PIZDEZ");
 
             SeleteableGameObject randomGO = dataSet[randomValue];
             activeButtons[i].SeleteableGameObject = randomGO;
@@ -126,5 +93,33 @@ public class GameField : MonoBehaviour
         activeButtons[correctButtonIndex].IsCorrectLetter = true;
         _usedSelecteableGO.Add(activeButtons[correctButtonIndex].SeleteableGameObject);
         _taskText.text = "Find " + activeButtons[correctButtonIndex].SeleteableGameObject.Name.ToUpper();
+    }
+
+    private List<SeleteableGameObject> GetRandomDataSet()
+    {
+        int indexOfSet = UnityEngine.Random.Range(0, _dataSets.Length);
+        IEnumerable<SeleteableGameObject> randomDataSet = new List<SeleteableGameObject>(_dataSets[indexOfSet].GetDataSet());
+        IEnumerable<SeleteableGameObject> dataSetWithoutUsed = randomDataSet.Except(_usedSelecteableGO);
+        return new List<SeleteableGameObject>(dataSetWithoutUsed);
+    }
+
+    public void OnRestartButtonClick()
+    {
+        _restartButton.SetActive(false);
+        LevelNumber = 1;
+        GenerateNewLevel();
+    }
+
+    private void OnCorrectButtonClick()
+    {
+        LevelNumber++;
+        if (LevelNumber > 3)
+        {
+            _restartButton.SetActive(true);
+        }
+        else
+        {
+            GenerateNewLevel();
+        }
     }
 }
