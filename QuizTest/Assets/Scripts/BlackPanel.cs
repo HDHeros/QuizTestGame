@@ -7,7 +7,7 @@ using UnityEngine.Events;
 
 public class BlackPanel : MonoBehaviour
 {
-    [SerializeField] private GameField _gameField;
+    [SerializeField] private LevelController _levelController;
     [SerializeField] private Button _restartButton;
 
     private CanvasGroup _canvasGroup;
@@ -19,7 +19,7 @@ public class BlackPanel : MonoBehaviour
         _canvasGroup = GetComponent<CanvasGroup>();
         _image = GetComponent<Image>();
         _rectTransform = GetComponent<RectTransform>();
-        _gameField.SessionEnded.AddListener(OnSessionEnded);
+        _levelController.SessionEnded.AddListener(OnSessionEnded);
         _restartButton.onClick.AddListener(OnRestartButtonClick);
     }
 
@@ -40,5 +40,7 @@ public class BlackPanel : MonoBehaviour
 
 
         _image.raycastTarget = false;
+        _levelController.SetFirstLevel();
+
     }
 }

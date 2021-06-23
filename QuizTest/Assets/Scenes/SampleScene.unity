@@ -133,13 +133,14 @@ GameObject:
   - component: {fileID: 202539461}
   - component: {fileID: 202539460}
   - component: {fileID: 202539459}
+  - component: {fileID: 202539462}
   m_Layer: 5
   m_Name: RestartButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &202539458
 RectTransform:
   m_ObjectHideFlags: 0
@@ -156,7 +157,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 9}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &202539459
@@ -215,8 +216,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -240,6 +241,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 202539457}
   m_CullTransparentMesh: 0
+--- !u!114 &202539462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 202539457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0839a4c1c21c8e48bbb311014143b20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _levelController: {fileID: 916129124}
 --- !u!224 &248463351 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4681146092358278452, guid: 225aa2a46abab884fa861c83b1c21b15,
@@ -590,7 +604,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2e100900e578074595c786ad52cc706, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameField: {fileID: 916129123}
+  _levelController: {fileID: 916129124}
   _restartButton: {fileID: 202539459}
 --- !u!1 &519420028
 GameObject:
@@ -725,6 +739,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6384cb5dccaff8d468e5f3f4fa986879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _levelGenerator: {fileID: 916129125}
 --- !u!114 &638215658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5634,6 +5649,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98eb984113880694ea31de89d88fba03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _panelNumber: 2
+  _levelController: {fileID: 916129124}
 --- !u!1 &916129119
 GameObject:
   m_ObjectHideFlags: 0
@@ -5645,7 +5662,8 @@ GameObject:
   - component: {fileID: 916129120}
   - component: {fileID: 916129122}
   - component: {fileID: 916129121}
-  - component: {fileID: 916129123}
+  - component: {fileID: 916129124}
+  - component: {fileID: 916129125}
   m_Layer: 5
   m_Name: GameField
   m_TagString: Untagged
@@ -5713,7 +5731,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 916129119}
   m_CullTransparentMesh: 0
---- !u!114 &916129123
+--- !u!114 &916129124
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5722,18 +5740,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 916129119}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d308fbbbfbb5e4c4f90ff6007eab17c8, type: 3}
+  m_Script: {fileID: 11500000, guid: d0c57f2b4c1ab1a45bdbc50715140152, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _totalLevelCount: 3
+  SessionEnded:
+    m_PersistentCalls:
+      m_Calls: []
+  LevelChanged:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &916129125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 916129119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef765b8790f5d68468bf45627f5121f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _dataSets:
-  - {fileID: 11400000, guid: a3546d54883da164494c0f3bdfdbe116, type: 2}
   - {fileID: 11400000, guid: cf6f427f39d5928409d62263fa17bc8b, type: 2}
-  _firstRow: {fileID: 1644165989}
-  _secondRow: {fileID: 837197036}
-  _thirdRow: {fileID: 1763192105}
-  _taskText: {fileID: 638215658}
-  _restartButton: {fileID: 202539457}
-  SessionEnded:
+  - {fileID: 11400000, guid: a3546d54883da164494c0f3bdfdbe116, type: 2}
+  CorrectButtonChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1001 &916656813
@@ -6388,6 +6420,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98eb984113880694ea31de89d88fba03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _panelNumber: 1
+  _levelController: {fileID: 916129124}
 --- !u!1001 &1659225477
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6597,6 +6631,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98eb984113880694ea31de89d88fba03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _panelNumber: 3
+  _levelController: {fileID: 916129124}
 --- !u!1001 &1786100099
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using DG.Tweening;
 
+
 public class LetterButton : MonoBehaviour, IBounceable, IEaseInBounce
 {
     [SerializeField] private Image _imageUI;
@@ -12,6 +13,7 @@ public class LetterButton : MonoBehaviour, IBounceable, IEaseInBounce
 
 
     public UnityEvent ClickedOnCorrectLetter;
+    public UnityEvent CorrectValueIsSet;
     public bool IsCorrectLetter;
     public SeleteableGameObject SeleteableGameObject
     {
